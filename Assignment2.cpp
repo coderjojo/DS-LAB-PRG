@@ -1,110 +1,88 @@
 #include<iostream>
 using namespace std;
-int main()
+struct Mat
 {
-    int row ,col,i,j,nz=0;
-	cout<<"Enter number of rows and columns: ";
-	cin>>row>>col;
-    int mat1[row][col];
-	cout<<"\nEnter the values: ";
-	for(i=0;i<row;i++)
-	{
-		for(j=0;j<col;j++)
-		{
-			cin>>mat1[i][j];
-			if(mat1[i][j]!=0)
-				nz++;
+	int row,col,data;
+}sparce;
+
+
+void readMatrix(Mat arr[], int r, int c){
+	int i, j, e;
+	arr[0].row = r;
+	arr[0].col = c;
+	int k = 1;
+
+	cout<<"Enter the elements: \n";
+	for(int i = 0; i < r; i++){
+		for(int j = 0; j < c; j++){
+			cin>>e;
+			//simple transpose
+			if(e == 0)
+				continue;
+
+			arr[k].row = i;
+			arr[k].col = j;
+			arr[k].data = e;
+			k++;
 		}
 	}
 
-    int sparsemat[nz+1][3],index=1;
-	sparsemat[0][0]=row;
-	sparsemat[0][1]=col;
-	sparsemat[0][2]=nz;
+	arr[0].data = k-1;
 
-	for(i=0;i<row;i++)
-	{
-		for(j=0;j<col;j++)
-		{
-			if(mat1[i][j]!=0)
-			{
-				sparsemat[index][0]=i;
-				sparsemat[index][1]=j;
-				sparsemat[index][2]=mat1[i][j];
-				index++;
-			}
+	cout<<"\nEnterd sparce matric is: "<<endl;
+	for(int i = 0; i <= arr[0].data; i++){
+		cout<<arr[i].row<<"  "<<arr[i].col<<"  "<<arr[i].data;
+		cout<<endl;
+	}
+}
+
+/*
+void fasttranspose(Mat a[], Mat b[]){
+	int rows[100], start[100];
+
+	int num = a[0].data;
+	int cols = a[0].col;
+
+	b[0].data = num;
+	b[0].col = a[0].row;
+	b[0].row = cols;
+	if(num>0){
+		for(int i = 0; i < cols; i++)
+			rows[i] = 0;
+		for(int i = 1; i <= num; i++)
+			rows[a[i].col]++;
+		start[0] = 1;
+		for(int i = 1; i < cols; i++)
+			start[i] = start[i-1] + rows[i-1];
+
+		for(int i = 1; i < num; i++){
+			int j = start[a[i].col]++;
+			b[j].row = a[i].col;
+			b[j].col = a[i].row;
+			b[j].data = a[i].data;
 		}
 	}
-	cout<<"The resultant sparse matrix is :\n";
-	for(i=0;i<index;i++)
-	{
-		for(j=0;j<3;j++)
-		{
-			cout<<" "<<sparsemat[i][j];
-		}
-		cout<<"\n";
+
+
+	cout<<"\nFast transpose:  "<<endl;
+	for(int i = 0; i <= a[0].data; i++){
+		cout<<a[i].row<<"  "<<a[i].col<<"  "<<a[i].data;
+		cout<<endl;
 	}
-    int transpose1[nz+1][3],index2=1;
-	transpose1[0][0]=col;
-	transpose1[0][1]=row;
-	transpose1[0][2]=nz;
-	for(int pass=0;pass<col;pass++)
-	{
-		for(index=1;index<=nz;index++)
-		{
-			if(sparsemat[index][1]==pass)
-			{
-				transpose1[index2][0]=sparsemat[index][1];
-				transpose1[index2][1]=sparsemat[index][0];
-				transpose1[index2][2]=sparsemat[index][2];
-                index2++;
-			}
-		}
-	}
-	cout<<"The resultant transpose matrix using simple transpose is :\n";
-	for(i=0;i<=nz;i++)
-	{
-	  for(j=0;j<3;j++)
-	  {
-	    cout<<" "<<transpose1[i][j];
-	  }
-	  cout<<"\n";
-	}
-    int transpose[nz+1][3];
-    int countt[col],stindex[col];
-    transpose[0][0]=col;
-	transpose[0][1]=row;
-	transpose[0][2]=nz;
 
-    for(i=0;i<col;i++)
-     countt[i]=0;
+}*/
 
-    for(index=1;index<=nz;index++)
-     countt[sparsemat[index][1]]++;
 
-     stindex[0]=1;
 
-     for(i=1;i<col;i++)
-     stindex[i]=stindex[i-1]+countt[i-1];
 
-    for(index=1;index<=nz;index++)
-    {
-			index2=stindex[sparsemat[index][1]];
-            stindex[sparsemat[index][1]]++;
-            transpose[index2][0]=sparsemat[index][1];
-            transpose[index2][1]=sparsemat[index][0];
-            transpose[index2][2]=sparsemat[index][2];
-            index2++;
-		}
+int main(){
 
-	cout<<"The resultant transpose matrix using fast transpose is :\n";
-	for(i=0;i<=nz;i++)
-	{
-	  for(j=0;j<3;j++)
-	  {
-	    cout<<" "<<transpose[i][j];
-	  }
-	  cout<<"\n";
-	}
-	return 0;
+	int r,c;
+	Mat arr[50], b[20];
+
+	cout<<"Enter the number of the rows and colums: ";
+	cin>>r>>c;
+
+	readMatrix(arr,r,c);	
+	//fasttranspose(arr,b);
 }
