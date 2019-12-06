@@ -1,52 +1,44 @@
-#include<bits/stdc++.h>
+#include<iostream>
 using namespace std;
-int partition(int *a,int start,int end)
-{
-    int pivot=a[end];
-    int P_index=start;
-    int i,t;
-    for(i=start;i<end;i++)
-    {
-    	if(a[i]<=pivot)
-        {
-            t=a[i];
-            a[i]=a[P_index];
-            a[P_index]=t;
-            P_index++;
-        }
-     }
-      t=a[end];
-      a[end]=a[P_index];
-      a[P_index]=t;
-     return P_index;
- }
- void Quicksort(int *a,int start,int end)
- {
-    if(start<end)
-    {
-         int P_index=partition(a,start,end);
-             Quicksort(a,start,P_index-1);
-             Quicksort(a,P_index+1,end);
-    }
+
+void swap(int arr[], int a, int b){
+	int temp = arr[a];
+	arr[a] = arr[b];
+	arr[b] = temp;
 }
-int main()
-{
-    int n;
-        cout<<"Enter number of elements: ";
-        cin>>n;
-        int a[n];
-        cout<<"Enter the array elements:\n";
-        for(int i=0;i<n;i++)
-       {
-    	 cin>>a[i];
-       }
-      Quicksort(a,0,n-1);
-      cout<<endl<<"After Quick Sort the array is:\n";
-      for(int i=0;i<n;i++)
-      {
-    	 cout<<a[i]<<" ";
-      }
+
+
+int partion(int arr[], int s, int e){
+	int piv = arr[e];
+	int pi = s;
+	for(int i = pi; i < e; i++){
+		if(arr[i] <= piv){
+            swap(arr,i,pi);
+			pi++;
+		}
+	}
 	
-	cout<<endl;
-    return 0;
+	swap(arr,pi,e);
+	return pi;
+}
+
+
+
+void quickS(int arr[], int s, int e){
+	if(s < e){
+
+	int p = partion(arr,s,e);
+	quickS(arr,s,p-1);
+	quickS(arr,p+1,e);
+	}
+}
+
+int main(){
+	int arr[10] = {66,3,33,55,6,77,1,2,99,10};
+	int n = 10;
+
+	quickS(arr,0,10);
+
+	for(int i = 0; i < n; i++)
+		cout<<arr[i]<<" ";
 }
