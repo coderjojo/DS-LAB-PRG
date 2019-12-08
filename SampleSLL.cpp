@@ -73,12 +73,46 @@ void display(){
 	}
 }
 
+
+void Delete(){
+	Node *temp;
+	if(head == NULL)
+		cout<<"Underflow!";
+	temp = head;
+
+	head = head->next;
+
+	delete(temp);
+
+}
+
+void DeletePos(){
+	Node *temp, *nn;
+	int e;
+	cout<<"Enter the element to delete: ";
+	cin>>e;
+	temp = head;
+
+	/*while(temp->data != e && temp!=NULL){
+		nn = temp;
+		temp = temp->next;
+	}
+
+	if(temp->data == e){
+		temp->next = nn->next;
+		delete(nn);
+	}
+	else{
+		cout<<"Element not found!";
+	}*/
+}
+
 int main(){
 
 	int ch = 3;
 
 	while(ch){
-		cout<<"\nEnter 1. Create\n2.display\n3.Insert at the front\n4.InsertInBetween"<<endl;
+		cout<<"\nEnter 1. Create\n2.display\n3.Insert at the front\n4.InsertInBetween\n5.Delete Start\n6.Delete Element"<<endl;
 		cin>>ch;
 		switch(ch){
 			case 1:
@@ -92,6 +126,12 @@ int main(){
 			break;
 			case 4:
 			insertPosition();
+			break;
+			case 5:
+			Delete();
+			break;
+			case 6:
+			DeletePos();
 			break;
 		}
 	}
