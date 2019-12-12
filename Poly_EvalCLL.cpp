@@ -144,7 +144,7 @@ int Pol_eval(NODE head1){
 
       a = head1->link;
       while(a != head1){
-            res += ((a->coeff)* pow((a->expon), v)); 
+            res += ((a->coeff)* pow(v,(a->expon))); 
             a = a->link;
       }
 
