@@ -45,41 +45,39 @@ Node *Insert(Node *temp, int d){
  		Search(temp->left, key);
  }
 
-Node *Findmin(Node *temp){
+Node *FindMin(Node *temp){
 	while(temp->left != NULL)
 		temp = temp->left;
 	return temp;
 } 
 
-Node *Delete(Node *root, int key){
-	if(root == NULL) return root;
-	else if(key < root->data) 
-		root->left = Delete(root->left, key);
-	else if(key > root->data)
-		root->right = Delete(root->right, key);
-	else{
-		if(root->left == NULL && root->right == NULL){
+Node *Delete(Node *root, int data){
+	if(root == NULL) return root; 
+	else if(data < root->data) root->left = Delete(root->left,data);
+	else if (data > root->data) root->right = Delete(root->right,data);
+
+	else {
+		// Case 1:  No child
+		if(root->left == NULL && root->right == NULL) { 
 			delete root;
 			root = NULL;
 		}
-
-		else if(root->left == NULL){
-			Node *temp = root;
+		//Case 2: One child 
+		else if(root->left == NULL) {
+			struct Node *temp = root;
 			root = root->right;
-			delete root;
-
+			delete temp;
 		}
-
-		else if(root->right == NULL){
-			Node *temp = root;
+		else if(root->right == NULL) {
+			struct Node *temp = root;
 			root = root->left;
-			delete root;
+			delete temp;
 		}
-
-		else{
-			Node *temp = Findmin(root->right);
+		// case 3: 2 children
+		else { 
+			struct Node *temp = FindMin(root->right);
 			root->data = temp->data;
-			root->right = Delete(root->right, temp->data);
+			root->right = Delete(root->right,temp->data);
 		}
 	}
 	return root;
