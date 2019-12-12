@@ -1,4 +1,4 @@
- #include<bits/stdc++.h>
+#include<bits/stdc++.h>
  #include<stdio.h>
 #include<stdlib.h>
 
@@ -187,14 +187,16 @@ int main()
             printf("\nEnter the second polynomial \n");
             head2 = read_poly(head2);
 
-            head3 = poly_add(head1, head2, head3);
-
-            head4 = poly_Mul(head1, head2, head4);
-
             printf("\nPolynomial 1:\t");
             display(head1);
             printf("\nPolynomial 2:\t");
             display(head2);
+
+            head3 = poly_add(head1, head2, head3);
+
+            head4 = poly_Mul(head1, head2, head4);
+
+
             printf("\nPolynomial Result:\t");
             display(head3);
 
@@ -202,7 +204,7 @@ int main()
             display(head4);
 
             printf("\nPolynomial Evaluation: \t");
-            int r = Pol_eval(head1);
+            int r = Pol_eval(head4);
             cout<<r<<endl;
 
             return 0;
