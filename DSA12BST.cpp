@@ -50,7 +50,7 @@ Node *FindMin(Node *temp){
 		temp = temp->left;
 	return temp;
 } 
-
+//my code school 
 Node *Delete(Node *root, int data){
 	if(root == NULL) return root; 
 	else if(data < root->data) root->left = Delete(root->left,data);
