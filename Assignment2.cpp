@@ -36,41 +36,48 @@ void readMatrix(Mat arr[], int r, int c){
 	}
 }
 
-/*
+
 void fasttranspose(Mat a[], Mat b[]){
-	int rows[100], start[100];
+	 int row_terms[100],  start_pos[100];
+            int i,  j,  p;       
 
-	int num = a[0].data;
-	int cols = a[0].col;
+            int numTerms = a[0].data;
+            int numCols = a[0].col;
+             
+            b[0].row = numCols;
+            b[0].col = a[0].row;
+            b[0].data = numTerms;
+            if(numTerms>0)
+            {
+                        for(i =0; i<numCols;  i++)
+                                                row_terms[i] = 0;
 
-	b[0].data = num;
-	b[0].col = a[0].row;
-	b[0].row = cols;
-	if(num>0){
-		for(int i = 0; i < cols; i++)
-			rows[i] = 0;
-		for(int i = 1; i <= num; i++)
-			rows[a[i].col]++;
-		start[0] = 1;
-		for(int i = 1; i < cols; i++)
-			start[i] = start[i-1] + rows[i-1];
+                        for(i=1; i<=numTerms; i++)
+                                                row_terms[a[i].col]++;
 
-		for(int i = 1; i < num; i++){
-			int j = start[a[i].col]++;
-			b[j].row = a[i].col;
-			b[j].col = a[i].row;
-			b[j].data = a[i].data;
-		}
-	}
+                        start_pos[0]=1;
 
+                        for(i=1; i<numCols; i++)
+                                                start_pos[i] = start_pos[i-1] + row_terms[i-1];
 
-	cout<<"\nFast transpose:  "<<endl;
-	for(int i = 0; i <= a[0].data; i++){
-		cout<<a[i].row<<"  "<<a[i].col<<"  "<<a[i].data;
-		cout<<endl;
-	}
+                        for(i=1; i<=numTerms; i++)
+                        {
+                                                j = start_pos[a[i].col]++;
+                                    b[j].row = a[i].col;
+                                                b[j].col = a[i].row;
+                                                b[j].data = a[i].data;
+                        }
+             }
+            printf("\nThe Fast Transpose sparse matrix is:\n");
+            printf("\nRow\tColumn\tValue\n");
+            for(p=0; p<=a[0].data; p++)
+            {
+                        printf("%d\t", b[p].row);
+                        printf("%d\t", b[p].col);
+                        printf("%d\n", b[p].data);
+            }
 
-}*/
+}
 
 
 
@@ -84,5 +91,7 @@ int main(){
 	cin>>r>>c;
 
 	readMatrix(arr,r,c);	
-	//fasttranspose(arr,b);
+	fasttranspose(arr,b);
 }
+
+//https://tejaswinihbhat.blogspot.com/2016/08/sparse-matrix-fast-transpose.html
