@@ -1,4 +1,4 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
 struct node
@@ -9,46 +9,47 @@ struct node
 
 struct node *newNode(int item)
 {
-    struct node *temp =  new node();
+    struct node *temp = new node();
     temp->key = item;
     temp->left = temp->right = NULL;
     return temp;
 }
-void search(struct node * node,int item)
+void search(struct node *node, int item)
 {
-    if(node==NULL)
-        cout<<"No Element Found";
-    else if(item<node->key)
-        search(node->left,item);
-     else if(item>node->key)
-        search(node->right,item);
+    if (node == NULL)
+        cout << "No Element Found";
+    else if (item < node->key)
+        search(node->left, item);
+    else if (item > node->key)
+        search(node->right, item);
     else
-        cout<<"Item found"<<endl;
+        cout << "Item found" << endl;
 }
 void inorder(struct node *root)
 {
     if (root != NULL)
     {
         inorder(root->left);
-        cout<<root->key<<" ";
+        cout << root->key << " ";
         inorder(root->right);
     }
 }
-struct node* insert(struct node* node, int key)
+struct node *insert(struct node *node, int key)
 {
-    if (node == NULL) return newNode(key);
+    if (node == NULL)
+        return newNode(key);
 
     if (key < node->key)
-        node->left  = insert(node->left, key);
+        node->left = insert(node->left, key);
     else
         node->right = insert(node->right, key);
 
     return node;
 }
 
-struct node * minValueNode(struct node* node)
+struct node *minValueNode(struct node *node)
 {
-    struct node* current = node;
+    struct node *current = node;
 
     while (current && current->left != NULL)
         current = current->left;
@@ -56,9 +57,10 @@ struct node * minValueNode(struct node* node)
     return current;
 }
 
-struct node* deleteNode(struct node* root, int key)
+struct node *deleteNode(struct node *root, int key)
 {
-    if (root == NULL) return root;
+    if (root == NULL)
+        return root;
 
     if (key < root->key)
         root->left = deleteNode(root->left, key);
@@ -71,17 +73,17 @@ struct node* deleteNode(struct node* root, int key)
         if (root->left == NULL)
         {
             struct node *temp = root->right;
-            delete(root);
+            delete (root);
             return temp;
         }
         else if (root->right == NULL)
         {
             struct node *temp = root->left;
-            delete(root);
+            delete (root);
             return temp;
         }
 
-        struct node* temp = minValueNode(root->right);
+        struct node *temp = minValueNode(root->right);
 
         root->key = temp->key;
 
@@ -93,27 +95,27 @@ struct node* deleteNode(struct node* root, int key)
 int main()
 {
     struct node *root = NULL;
-    int ch,ele;
+    int ch, ele;
     do
     {
-    cout<<"1.Insert Element"<<endl;
-    cout<<"2.Delete Element"<<endl;
-    cout<<"3.Display"<<endl;
-    cout<<"4.Search"<<endl;
-    cout<<"Enter your choice"<<endl;
-    cin>>ch;
-    switch(ch)
-    {
+        cout << "1.Insert Element" << endl;
+        cout << "2.Delete Element" << endl;
+        cout << "3.Display" << endl;
+        cout << "4.Search" << endl;
+        cout << "Enter your choice" << endl;
+        cin >> ch;
+        switch (ch)
+        {
         case 1:
-            cout<<"Enter element : ";
-            cin>>ele;
-            root=insert(root,ele);
+            cout << "Enter element : ";
+            cin >> ele;
+            root = insert(root, ele);
             break;
 
         case 2:
-            cout<<"Enter element : ";
-            cin>>ele;
-            root=deleteNode(root,ele);
+            cout << "Enter element : ";
+            cin >> ele;
+            root = deleteNode(root, ele);
             break;
 
         case 3:
@@ -121,18 +123,17 @@ int main()
             break;
 
         case 4:
-            cout<<"Enter Element:";
-            cin>>ele;
-            search(root,ele);
+            cout << "Enter Element:";
+            cin >> ele;
+            search(root, ele);
             break;
 
         default:
-            cout<<"Invalid choice";
-    }
+            cout << "Invalid choice";
+        }
 
-
-    cout<<"Press 1 to continue"<<endl;
-    cin>>ch;
-    }while(ch==1);
+        cout << "Press 1 to continue" << endl;
+        cin >> ch;
+    } while (ch == 1);
     return 0;
 }
